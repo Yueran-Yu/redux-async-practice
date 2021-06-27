@@ -1,12 +1,23 @@
 import Axios from 'axios';
-
-export const fetchPosts = async () => {
+                                 // pass two functions as parameter
+export const fetchPosts = () => async (dispatch, getState) => {
   const response = await Axios.get('https://jsonplaceholder.typicode.com/posts')
-  return {
+
+  dispatch({
     type: 'FETCH_POSTS',
     payload: response.data
-  }
+  })
 }
+
+
+//
+// export const fetchPosts = async () => {
+//   const response = await Axios.get('https://jsonplaceholder.typicode.com/posts')
+//   return {
+//     type: 'FETCH_POSTS',
+//     payload: response.data
+//   }
+// }
 
 //1. action creators can only return plain Javascript objects that have a type property, so we can only return an action object if it tries to return anything else, we wil gonna get an error from react and redux
 
