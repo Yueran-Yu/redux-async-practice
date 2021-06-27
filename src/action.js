@@ -1,13 +1,28 @@
 import Axios from 'axios';
-                                 // pass two functions as parameter
-export const fetchPosts = () => async (dispatch, getState) => {
-  const response = await Axios.get('https://jsonplaceholder.typicode.com/posts')
 
-  dispatch({
-    type: 'FETCH_POSTS',
-    payload: response.data
-  })
+export const fetchPosts = () => async (dispatch, getState) => {
+  dispatch({type: 'FETCH_POSTS_REQUEST'})
+  try {
+    const response = await Axios.get('https://jsonplaceholder.typicode.com/posts')
+
+    dispatch({type: 'FETCH_POSTS_SUCCESS', payload: response.data.slice(0,10)})
+
+  } catch (error) {
+
+    dispatch({type: 'FETCH_POSTS_FAILURE', payload: error})
+  }
 }
+
+
+// pass two functions as parameter
+// export const fetchPosts = () => async (dispatch, getState) => {
+//   const response = await Axios.get('https://jsonplaceholder.typicode.com/posts')
+//
+//   dispatch({
+//     type: 'FETCH_POSTS',
+//     payload: response.data
+//   })
+// }
 
 
 //
